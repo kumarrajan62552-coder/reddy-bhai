@@ -1,0 +1,430 @@
+https://<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>REDDY bhai - Get Your New ID</title>
+  <style>
+    /* Reset and Base Styling */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-dark: #050505;
+      --card-bg: #111111;
+      --card-border: #1e1e1e;
+      --neon-lime: #c8ff00;
+      --neon-glow: rgba(200, 255, 0, 0.35);
+      --neon-glow-strong: rgba(200, 255, 0, 0.45);
+      --text-white: #ffffff;
+      --text-muted: #8a8d93;
+      --timer-red: #ff4d4d;
+    }
+
+    html, body {
+      min-height: 100vh;
+      width: 100%;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Subtle radial ambient glow at the top */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 520px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(200, 255, 0, 0.14) 0%, rgba(5, 5, 5, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Main Responsive Container */
+    .container {
+      width: 100%;
+      max-width: 440px;
+      padding: 36px 20px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Circular Logo Badge */
+    .logo-badge {
+      width: 124px;
+      height: 124px;
+      border-radius: 50%;
+      background-color: #0b0b0b;
+      border: 2.5px solid var(--neon-lime);
+      box-shadow: 0 0 28px var(--neon-glow), inset 0 0 14px rgba(200, 255, 0, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-badge:hover {
+      transform: scale(1.03);
+    }
+
+    /* Brand Heading */
+    .brand-title {
+      font-size: clamp(2rem, 8.5vw, 2.55rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .brand-title .white-part {
+      color: var(--text-white);
+      text-transform: uppercase;
+    }
+
+    .brand-title .lime-part {
+      color: var(--neon-lime);
+      text-transform: lowercase;
+    }
+
+    /* Subheading */
+    .subheading {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: #a3a3a3;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    /* Primary CTA Button */
+    .cta-button {
+      width: 100%;
+      background-color: var(--neon-lime);
+      color: #050505;
+      text-decoration: none;
+      border-radius: 16px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      font-size: 1.08rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 0 32px var(--neon-glow-strong), 0 8px 20px rgba(0, 0, 0, 0.6);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background-color: #d4ff33;
+      box-shadow: 0 0 42px rgba(200, 255, 0, 0.65), 0 10px 24px rgba(0, 0, 0, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .cta-button:active {
+      transform: scale(0.98);
+    }
+
+    /* Telegram Icon inside button */
+    .tg-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Helper Text below Button */
+    .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    /* Countdown Pill */
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #0d0d0d;
+      border: 1px solid #222222;
+      border-radius: 999px;
+      padding: 10px 26px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .countdown-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #d4d4d4;
+      text-transform: uppercase;
+    }
+
+    .countdown-time {
+      font-size: 0.88rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--timer-red);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 3 Feature Cards Grid */
+    .features-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .feature-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(200, 255, 0, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-stat {
+      font-size: clamp(1.1rem, 4.2vw, 1.3rem);
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+
+    .feature-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Bottom Trust Badges Row */
+    .trust-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trust-dot {
+      color: #4b5563;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Small screen adjustments */
+    @media (max-width: 360px) {
+      .container {
+        padding: 28px 14px 24px;
+      }
+      .features-grid {
+        gap: 8px;
+      }
+      .feature-card {
+        padding: 16px 4px;
+      }
+      .trust-row {
+        gap: 8px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <!-- Top Circular Logo with Custom Crown & RA Vector -->
+    <div class="logo-badge" aria-label="Reddy Bhai Logo">
+      <svg width="74" height="74" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Crown Shape -->
+        <path d="M27 38L33 20L50 30L67 20L73 38C73 41 70.5 43 67.5 43H32.5C29.5 43 27 41 27 38Z" fill="#c8ff00"/>
+        <!-- Bold RA Lettering -->
+        <text x="50" y="76" text-anchor="middle" fill="#c8ff00" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="38" letter-spacing="-1">RA</text>
+      </svg>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="brand-title">
+      <span class="white-part">REDDY</span>
+      <span class="lime-part">bhai</span>
+    </h1>
+
+    <!-- Subheading -->
+    <p class="subheading">GET YOUR NEW !D</p>
+
+    <!-- Primary CTA Button with Target Link -->
+    <a href="https://reddy888.asia" class="cta-button" rel="noopener noreferrer">
+      <span class="tg-icon-circle" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.665 3.717L2.935 10.554C1.725 11.04 1.732 11.715 2.713 12.016L7.265 13.436L17.797 6.791C18.295 6.488 18.75 6.651 18.376 6.983L9.843 14.684H9.841L9.843 14.685L9.529 19.377C9.989 19.377 10.192 19.166 10.45 18.917L12.661 16.767L17.26 20.164C18.108 20.631 18.717 20.391 18.928 19.379L21.947 5.151C22.256 3.912 21.474 3.351 20.665 3.717Z" fill="#c8ff00"/>
+        </svg>
+      </span>
+      <span>GET NEW ID</span>
+    </a>
+
+    <!-- Helper Text -->
+    <p class="helper-text">Message now to get your ID instantly</p>
+
+    <!-- Live Countdown Pill -->
+    <div class="countdown-pill" role="timer" aria-live="polite">
+      <span class="countdown-label">ENDS IN:</span>
+      <span class="countdown-time" id="countdown">14:35</span>
+    </div>
+
+    <!-- 3 Feature Cards Grid -->
+    <section class="features-grid" aria-label="Platform Highlights">
+      <!-- Card 1: 100% Accuracy -->
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="feature-stat">100%</div>
+        <div class="feature-label">ACCURACY</div>
+      </div>
+
+      <!-- Card 2: 100K+ Members -->
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="feature-stat">100K+</div>
+        <div class="feature-label">MEMBERS</div>
+      </div>
+
+      <!-- Card 3: 24/7 Support -->
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12l4 6-10 12L2 9z"></path>
+            <path d="M11 3L8 9l4 12 4-12-3-6"></path>
+            <path d="M2 9h20"></path>
+          </svg>
+        </div>
+        <div class="feature-stat">24/7</div>
+        <div class="feature-label">SUPPORT</div>
+      </div>
+    </section>
+
+    <!-- Bottom Trust Badges -->
+    <footer class="trust-row">
+      <span class="trust-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#c8ff00" aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        <span>Verified</span>
+      </span>
+
+      <span class="trust-dot" aria-hidden="true">&middot;</span>
+
+      <span class="trust-item">
+        <span>Secure</span>
+      </span>
+
+      <span class="trust-dot" aria-hidden="true">&middot;</span>
+
+      <span class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#c8ff00" aria-hidden="true">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <span>Instant</span>
+      </span>
+    </footer>
+  </main>
+
+  <script>
+    // Live Countdown Timer starting at 14:35 (875 seconds)
+    (function () {
+      const timerDisplay = document.getElementById("countdown");
+      const initialSeconds = 14 * 60 + 35;
+      let remainingSeconds = initialSeconds;
+
+      function formatTime(totalSecs) {
+        const mins = Math.floor(totalSecs / 60);
+        const secs = totalSecs % 60;
+        return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+      }
+
+      // Initialize display immediately
+      if (timerDisplay) {
+        timerDisplay.textContent = formatTime(remainingSeconds);
+
+        setInterval(function () {
+          if (remainingSeconds > 0) {
+            remainingSeconds -= 1;
+          } else {
+            // Reset smoothly so urgency stays active
+            remainingSeconds = initialSeconds;
+          }
+          timerDisplay.textContent = formatTime(remainingSeconds);
+        }, 1000);
+      }
+    })();
+  </script>
+</body>
+</html>
